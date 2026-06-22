@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import sweetviz as sv
 import streamlit.components.v1 as components
 
 # --------------------------------------------------
@@ -107,36 +106,15 @@ st.markdown("""
 """)
 
 # --------------------------------------------------
-# SWEETVIZ
+# REPORTE SWEETVIZ
 # --------------------------------------------------
-st.subheader("📈 Análisis Exploratorio Automático")
+st.subheader("📈 Análisis Exploratorio Automático (Sweetviz)")
 
-with st.spinner("Generando reporte Sweetviz..."):
+with open("reporte_sweetviz.html", "r", encoding="utf-8") as archivo:
+    html = archivo.read()
 
-    reporte = sv.analyze(df)
-
-    reporte.show_html(
-        filepath="reporte_sweetviz.html",
-        open_browser=False
-    )
-
-    st.success("✅ Reporte generado correctamente")
-
-    # Botón para descargar el reporte
-    with open("reporte_sweetviz.html", "rb") as archivo:
-        st.download_button(
-            label="📥 Descargar Reporte Sweetviz",
-            data=archivo,
-            file_name="reporte_sweetviz.html",
-            mime="text/html"
-        )
-
-    # Mostrar el reporte en tamaño grande
-    with open("reporte_sweetviz.html", "r", encoding="utf-8") as archivo:
-        html = archivo.read()
-
-    components.html(
-        html,
-        height=4000,
-        scrolling=True
-    )
+components.html(
+    html,
+    height=4000,
+    scrolling=True
+)
